@@ -3,29 +3,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+// 🚀 Guruttopurno: Eita lib/graphql.ts theke Article interface-ti import korbe
+import { Article } from '@/lib/graphql'; 
 
-// 1. Article Interface Define Kora Holo (lib/graphql.ts theke import kora uchit)
-// Kintu simplicity-r jonno, ekhane GraphQL-er dorkari field gulo toiri kora holo:
-
-interface Article {
-  // Ekhane slug bebohar kora hobe Link er jonno, ID er bodole
-  slug: string; 
-  title: string;
-  plus: string;
-  author?: {
-    node: {
-      name: string;
-    };
-  };
-  featuredImage?: {
-    node: {
-      sourceUrl: string;
-    };
-  };
-}
-
-// 2. Component-e Type Define Kora Holo (Fix!)
-// 'article' props-er type Article hishebe nishchit kora holo
+// component-e shothik type set kora holo (FC = FunctionComponent)
 const ArticleCard: React.FC<{ article: Article }> = ({ article }) => {
   // Data extraction
   const imageUrl = article.featuredImage?.node?.sourceUrl || '/images/default.png';
@@ -39,12 +20,12 @@ const ArticleCard: React.FC<{ article: Article }> = ({ article }) => {
         {/* Main Image */}
         <div className="relative w-full aspect-video">
           <Image 
-            src={imageUrl} // Dynamic image URL
+            src={imageUrl} 
             alt={article.title} 
             fill 
             sizes="(max-width: 1024px) 50vw, 33vw"
             className="object-cover"
-            priority // First few images should load quickly
+            priority 
           />
         </div>
       </Link>
@@ -57,8 +38,8 @@ const ArticleCard: React.FC<{ article: Article }> = ({ article }) => {
         </Link>
         <p className="text-base text-gray-600 mb-4">
           <span className="font-semibold text-blue-600">PLUS: </span>
-          {/* dangerouslySetInnerHTML bebohar kora uchit jodi excerpt HTML thake */}
-          <span dangerouslySetInnerHTML={{ __html: article.plus }} /> 
+          {/* excerpt-ti HTML bebohar korte pare, tai dangerouslySetInnerHTML */}
+          <span dangerouslySetInnerHTML={{ __html: article.excerpt || article.plus }} /> 
         </p>
         
         <div className="flex items-center text-sm text-gray-500">
