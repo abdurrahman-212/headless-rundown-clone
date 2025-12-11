@@ -3,10 +3,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-// 🚀 Guruttopurno: Eita lib/graphql.ts theke Article interface-ti import korbe
+
+// 🚀 Guruttopurno: lib/graphql.ts theke Article interface-ti import kora holo
+// Eita Vercel-er Type Error thik korbe. 
 import { Article } from '@/lib/graphql'; 
 
-// component-e shothik type set kora holo (FC = FunctionComponent)
+// component-e shothik type set kora holo (React.FC<{ props }>)
 const ArticleCard: React.FC<{ article: Article }> = ({ article }) => {
   // Data extraction
   const imageUrl = article.featuredImage?.node?.sourceUrl || '/images/default.png';
@@ -38,8 +40,8 @@ const ArticleCard: React.FC<{ article: Article }> = ({ article }) => {
         </Link>
         <p className="text-base text-gray-600 mb-4">
           <span className="font-semibold text-blue-600">PLUS: </span>
-          {/* excerpt-ti HTML bebohar korte pare, tai dangerouslySetInnerHTML */}
-          <span dangerouslySetInnerHTML={{ __html: article.excerpt || article.plus }} /> 
+          {/* excerpt-ti HTML bebohar korte pare, tai dangerouslySetInnerHTML bebohar kora holo */}
+          <span dangerouslySetInnerHTML={{ __html: article.excerpt || '' }} /> 
         </p>
         
         <div className="flex items-center text-sm text-gray-500">
