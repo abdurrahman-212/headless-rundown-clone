@@ -3,9 +3,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-
 // 🚀 Guruttopurno: lib/graphql.ts theke Article interface-ti import kora holo
-// Eita Vercel-er Type Error thik korbe. 
+// Eita Vercel-er Type Error thik korbe.
 import { Article } from '@/lib/graphql'; 
 
 // component-e shothik type set kora holo (React.FC<{ props }>)
@@ -40,7 +39,7 @@ const ArticleCard: React.FC<{ article: Article }> = ({ article }) => {
         </Link>
         <p className="text-base text-gray-600 mb-4">
           <span className="font-semibold text-blue-600">PLUS: </span>
-          {/* excerpt-ti HTML bebohar korte pare, tai dangerouslySetInnerHTML bebohar kora holo */}
+          {/* excerpt-ti HTML bebohar korte pare, tai dangerouslySetInnerHTML */}
           <span dangerouslySetInnerHTML={{ __html: article.excerpt || '' }} /> 
         </p>
         
